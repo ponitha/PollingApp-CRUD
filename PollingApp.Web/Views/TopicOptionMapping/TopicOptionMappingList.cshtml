@@ -1,0 +1,42 @@
+﻿@model IEnumerable<PollingApp.Models.TopicOptionMapping>
+
+
+<div id="entityData">
+    <table class="row-border compact stripe hover dataTable" id="entityTable">
+        <thead>
+            <tr>
+                <th>
+                    <span id="FirstName">@Html.DisplayNameFor(model => model.TopicMaster.TopicName)</span>
+                </th>
+                <th>
+                    <span id="FirstName">@Html.DisplayNameFor(model => model.OptionMaster.OptionName)</span>
+                </th>
+                <th>
+                    <span id="Actions">@Html.Raw("Actions")</span>
+                </th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TopicMaster.TopicName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OptionMaster.OptionName)
+                </td>
+                <td>
+
+                    @Ajax.ActionLink("Edit", "Edit", new { id = item.TopicOptionMappingId }, new AjaxOptions() { UpdateTargetId = "entityContainer", HttpMethod = "Get", OnComplete = "ShowEntityModal" })
+                    <span>|</span>
+
+                    @Ajax.ActionLink("Delete", "Delete", new { id = item.TopicOptionMappingId }, new AjaxOptions() { UpdateTargetId = "entityContainer", HttpMethod = "Get", OnComplete = "ShowEntityModal" })
+                    <span>|</span>
+
+                    @Ajax.ActionLink("Details", "Details", new { id = item.TopicOptionMappingId }, new AjaxOptions() { UpdateTargetId = "entityContainer", HttpMethod = "Get", OnComplete = "ShowEntityModal" })
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+

@@ -1,0 +1,131 @@
+﻿@model PollingApp.Models.TopicOptionMapping
+   
+    <head>
+
+    </head>
+    <h2>TopicOptionMapping</h2>
+
+    <div id="entityData">
+        <table class="row-border compact stripe hover dataTable" id="entityTable">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.TopicOptionMappingId)   </th>
+                    <th>@Html.DisplayNameFor(model => model.TopicMaster.TopicName)   </th>
+                    <th>@Html.DisplayNameFor(model => model.OptionMaster.OptionName)   </th>
+                    <th>@Html.DisplayNameFor(model => model.CreatedDate)   </th>
+                    <th>@Html.DisplayNameFor(model => model.CreatedBy)   </th>
+                    <th>@Html.DisplayNameFor(model => model.LastModifiedBy)    </th>
+                    <th>@Html.DisplayNameFor(model => model.LastModifiedDate)   </th>
+                    <th>@Html.Raw("Actions")</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    @*@Html.Partial("TopicList")*@
+
+    @Ajax.ActionLink("Add", "Create", null, new AjaxOptions() { UpdateTargetId = "entityContainer", HttpMethod = "Get", OnComplete = "ShowEntityModal" }, new { @class = "btn btn-primary" })
+
+    <div id="entityContainer"></div>
+
+
+    @section scripts
+{
+        @Scripts.Render("~/bundles/jqueryval")
+        <script type="text/javascript">
+
+            var apiUrl = 'http://localhost:8080/api/ApiTopicOptionMapping/';
+            $(document).ready(function () {
+                RenderGrid();
+            });
+
+            function insertdetails() {
+                var topicId = $('#TopicId').val();
+                //alert(topicId);
+                var optionId = $('#OptionId').val();
+                $.ajax({
+                    url: apiUrl,
+                    type: "post",
+                    datatype: 'json',
+                    data: { "TopicId": topicId, "OptionId": optionId, "createddate": "12/12/2018" },
+                    success: function (data) {
+                        var div = "<div><a href='#' class='close' data-dismiss='alert'>×</a><strong>" + "successfully inserted" + "</strong></div>";
+                        $("#divMessage").html(div);
+                        $("#divMessage").show();
+                        $('#entityModal').modal('hide');
+                        RenderGrid();
+                    }
+                });
+            }
+            
+            function UpdateDetails() {
+                var topicId = $('#TopicId').val();
+                var optionId = $('#OptionId').val();
+                var topicOptionMappingId = $('#TopicOptionMappingId').val();
+                $.ajax({
+                    url: apiUrl,
+                    method: "Put",
+                    dataType: 'json',                   
+                    data: { "TopicId": topicId, "OptionId": optionId, "CreatedDate": "12/12/2018", "TopicOptionMappingId": topicOptionMappingId },
+                    success: function (data) {
+                        var div = "<div><a href='#' class='close' data-dismiss='alert'>×</a><strong>" + "Successfully Updated" + "</strong></div>";
+                        $("#divMessage").html(div);
+                        $("#divMessage").show();
+                        $('#entityModal').modal('hide');
+                        RenderGrid();
+                    }
+                });
+            }
+
+            function DeleteConfirmed() {
+                var topicOptionMappingId = $('#TopicOptionMappingId').val();
+                $.ajax({
+                    url: apiUrl + '/Delete/' + topicOptionMappingId,
+                    method: "Delete",
+                    dataType: 'json',
+                    //data: { "id": topicId },
+                    success: function (data) {
+                        var div = "<div><a href='#' class='close' data-dismiss='alert'>×</a><strong>" + "Successfully Deleted" + "</strong></div>";
+                        $("#divMessage").html(div);
+                        $("#divMessage").show();
+                        $('#entityModal').modal('hide');
+                        RenderGrid();
+                    }
+                });
+            }
+
+            function RenderGrid() {
+                $.ajax({
+                    url: apiUrl,
+                    type: "GET",
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#entityTable').DataTable({
+                            destroy: true,
+                            data: data,
+                            columns: [
+                                { 'data': 'TopicOptionMappingId' },
+                                { 'data': 'TopicMaster.TopicName' },
+                                { 'data': 'OptionMaster.OptionName' },
+                                { 'data': 'CreatedDate' },
+                                { 'data': 'CreatedBy' },
+                                { 'data': 'LastModifiedBy' },
+                                { 'data': 'LastModifiedDate' },
+                                {
+                                    'data': 'TopicOptionMappingId',
+                                    "bSearchable": false,
+                                    "bSortable": false,
+                                    "render": function (TopicOptionMappingId) {
+                                        // oObj.aData[0] returns the RoleId
+                                        return '<a data-ajax="true" data-ajax-complete="ShowEntityModal" data-ajax-method="Get" data-ajax-mode="replace" data-ajax-update="#entityContainer"  href=/topicoptionmapping/Edit/?id=' + TopicOptionMappingId + '>Edit</a> | <a data-ajax="true" data-ajax-complete="ShowEntityModal" data-ajax-method="Get" data-ajax-mode="replace" data-ajax-update="#entityContainer"  href=/topicoptionmapping/Delete/?id=' + TopicOptionMappingId + '>Delete</a> | <a data-ajax="true" data-ajax-complete="ShowEntityModal" data-ajax-method="Get" data-ajax-mode="replace" data-ajax-update="#entityContainer"  href=/topicoptionmapping/Details/?id=' + TopicOptionMappingId + '>Details</a>';
+                                        //return '<a data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#Container" data-toggle="modal" href=/Home/Edit/' + TopicId + '>Edit</a> |<a data-ajax="true" data-toggle="modal" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#Container" href=/Home/Delete/' + TopicId + '>Delete</a> |<a data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#Container" href=/Home/Details/' + TopicId + '>Details</a>'
+
+                                    }
+                                }
+                            ]
+                        });
+                    }
+                });
+            }
+        </script>
+    }

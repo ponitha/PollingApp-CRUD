@@ -1,0 +1,37 @@
+﻿@model PollingApp.Models.TopicOptionMapping
+
+@using (Ajax.BeginForm("Edit", new AjaxOptions() { }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div id="entityModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal" aria-hidden="true">×</a>
+                    <h3 id="myModalLabel">@Html.Raw("Topic Option Mapping Id")</h3>
+                </div>
+                <div class="modal-body">
+                    @Html.HiddenFor(model => model.TopicOptionMappingId)
+                    <div class="span12">
+                        @Html.LabelFor(model => model.TopicMaster.TopicName)
+                        @Html.DropDownListFor(model => model.TopicId, (SelectList)ViewBag.TopicNameList)
+                        @Html.ValidationMessageFor(model => model.TopicId)
+                    </div>
+                    <div class="span12">
+                        @Html.LabelFor(model => model.OptionMaster.OptionName)
+                        @Html.DropDownListFor(model => model.OptionId, (SelectList)ViewBag.OptionNameList) 
+                        @Html.ValidationMessageFor(model => model.OptionId)
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input class="btn btn-primary" type="button" value="Save" OnClick="UpdateDetails()" />
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

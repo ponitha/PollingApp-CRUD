@@ -1,0 +1,24 @@
+﻿@model PollingApp.Models.TopicMaster
+
+
+@using (Ajax.BeginForm("Delete", new AjaxOptions() { }))
+{
+  @Html.AntiForgeryToken()
+  <div id="entityModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <a href="#" class="close" data-dismiss="modal" aria-hidden="true">×</a>
+          <h3>Are you sure want to Delete this Topic?</h3>
+        </div>
+        <div class="modal-body">
+          @Html.Partial("_TopicMasterDetails")
+        </div>
+        <div class="modal-footer">
+          <input class="btn btn-primary" type="button" value="Delete" OnClick="DeleteConfirmed()" />
+          <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+}

@@ -1,0 +1,28 @@
+﻿@model PollingApp.Models.TopicMaster
+
+<div class="span12">
+  <div class="span2 fontBold">@Html.DisplayNameFor(model => model.TopicId)</div>
+  <div class="span3">@Html.DisplayFor(model => model.TopicId)</div>
+  @Html.HiddenFor(model => model.TopicId)
+</div>
+<div class="span12">
+  <div class="span2 fontBold">@Html.DisplayNameFor(model => model.TopicCode)</div>
+  <div class="span3">@Html.DisplayFor(model => model.TopicCode)</div>
+</div>
+<div class="span12">
+  <div class="span2 fontBold">@Html.DisplayNameFor(model => model.TopicName)</div>
+  <div class="span3">@Html.DisplayFor(model => model.TopicName)</div>
+</div>
+<div class="span12">
+  <div class="span2 fontBold">@Html.DisplayNameFor(model => model.CreatedDate)</div>
+  <div class="span3">@Html.DisplayFor(model => model.CreatedDate)</div>
+</div>
+@*<div class="span12">
+  <div class="span2 fontBold">@Html.DisplayNameFor(model => model.ModifiedBy)</div>
+  <div class="span3">@Html.DisplayFor(model => model.AppUserModifiy.UserName)</div>
+</div>*@
+<div class="span12">
+  <div class="span2 fontBold">@Html.DisplayNameFor(model => model.LastModifieddate)</div>
+  <div class="span3">@Html.DisplayFor(model => model.LastModifieddate)</div>
+</div>
+

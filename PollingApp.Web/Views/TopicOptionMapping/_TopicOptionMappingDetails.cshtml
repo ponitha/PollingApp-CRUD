@@ -1,0 +1,25 @@
+﻿
+@model PollingApp.Models.TopicOptionMapping
+<div class="span12">
+    <div class="span2 fontBold">@Html.DisplayNameFor(model => model.TopicOptionMappingId)</div>
+    <div class="span3">@Html.DisplayFor(model => model.TopicOptionMappingId)</div>
+    @Html.HiddenFor(model => model.TopicOptionMappingId)
+</div>
+<div class="span12">
+    <div class="span2 fontBold">@Html.DisplayNameFor(model => model.TopicMaster.TopicName)</div>
+    <div class="span3">@Html.DisplayFor(model => model.TopicMaster.TopicName)</div>
+</div>
+<div class="span12">
+    <div class="span2 fontBold">@Html.DisplayNameFor(model => model.OptionMaster.OptionName)</div>
+    <div class="span3">@Html.DisplayFor(model => model.OptionMaster.OptionName)</div>
+</div>
+<div class="span12">
+    <div class="span2 fontBold">@Html.DisplayNameFor(model => model.CreatedDate)</div>
+    <div class="span3">@Html.DisplayFor(model => model.CreatedDate)</div>
+</div>
+
+<div class="span12">
+    <div class="span2 fontBold">@Html.DisplayNameFor(model => model.LastModifiedDate)</div>
+    <div class="span3">@Html.DisplayFor(model => model.LastModifiedDate)</div>
+</div>
+
